@@ -20,11 +20,9 @@
                 <label for="txtPassword" class="form-label">Password</label>
                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
             </div>
-            <div class="mb-3 form-check">
-                <asp:CheckBox ID="chkTerms" runat="server" CssClass="form-check-input" />
-                <label class="form-check-label" for="chkTerms">Check me out</label>
-            </div>
+         <div class="mb-3">
             <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="btnSubmit_Click" />
+             </div>
         </div>
     </form>
   
