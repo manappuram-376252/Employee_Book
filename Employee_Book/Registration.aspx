@@ -1,23 +1,41 @@
-﻿
-<%@ Page Title="Registration" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Employee_Book.Registration" %>
+﻿<%@ Page Title="Registration" Language="C#"  AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Employee_Book.Registration" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-  <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Registration.aspx.cs" Inherits="Registration" %>
 <!DOCTYPE html>
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Student Registration</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
-    <script>
+   <script>
         $(document).ready(function () {
+            $("#addQualification").click(function () {
+                var rowCount = $("#qualificationsGridView tr").length;
+                var newRow = `<tr>
+                    <td><input type="text" name="courseName[]" class="form-control" /></td>
+                    <td><input type="text" name="university[]" class="form-control" /></td>
+                    <td><input type="text" name="year[]" class="form-control" /></td>
+                    <td><input type="text" name="percentage[]" class="form-control" /></td>
+                    <td><button type="button" class="btn btn-danger btn-sm removeRow">Remove</button></td>
+                </tr>`;
+                $("#qualificationsGridView tbody").append(newRow);
+            });
+
+            $(document).on("click", ".removeRow", function () {
+                $(this).closest("tr").remove();
+            });
+          
+
             $("#registrationForm").validate({
                 rules: {
                     firstName: "required",
-                    age: "required",
+                    age: {
+                        required: true,
+                        digits: true
+                    },
                     dob: "required",
-                    gender: "required",
                     email: {
                         required: true,
                         email: true
@@ -26,80 +44,119 @@
                 },
                 messages: {
                     firstName: "Please enter your first name",
-                    age: "Please enter your age",
+                    age: {
+                        required: "Please enter your age",
+                        digits: "Please enter a valid age"
+                    },
                     dob: "Please enter your date of birth",
-                    gender: "Please select your gender",
                     email: "Please enter a valid email address",
                     phone: "Please enter your phone number"
                 }
-            });
-
-$("#addQualification").click(function () {
-                rowCount++;
-                var newRow = `<tr id="row${rowCount}">
-                    <td><input type="text" class="courseName" name="courseName[]"/></td>
-                    <td><input type="text" class="percentage" name="percentage[]"/></td>
-                    <td><input type="text" class="yearOfPassing" name="yearOfPassing[]"/></td>
-                    <td><button type="button" onclick="removeRow('row${rowCount}')">Remove</button></td>
-                </tr>`;
-                $("#qualifications tbody").append(newRow);
             });
         });
     </script>
 </head>
 <body>
-<%--    <form id="registrationForm" runat="server">--%>
-        <h2>Student Registration Form</h2>
+    <form id="registrationForm" runat="server">
+        <div class="container mt-4">
+            <h2>Registration Form</h2>
 
-        <label for="firstName">First Name:</label>
-        <asp:TextBox ID="firstName" runat="server" /><br />
-
-        <label for="lastName">Last Name:</label>
-        <asp:TextBox ID="lastName" runat="server" /><br />
-
-        <label for="age">Age:</label>
-        <asp:TextBox ID="age" runat="server" /><br />
-
-        <label for="dob">Date of Birth:</label>
-        <asp:TextBox ID="dob" runat="server" TextMode="Date" /><br />
-
-        <label for="gender">Gender:</label>
-        <asp:DropDownList ID="gender" runat="server">
-            <asp:ListItem Value="Male">Male</asp:ListItem>
-            <asp:ListItem Value="Female">Female</asp:ListItem>
-            <asp:ListItem Value="Other">Other</asp:ListItem>
-        </asp:DropDownList><br />
-
-        <label for="email">Email ID:</label>
-        <asp:TextBox ID="email" runat="server" TextMode="Email" /><br />
-
-        <label for="phone">Phone Number:</label>
-        <asp:TextBox ID="phone" runat="server" TextMode="Tel" /><br />
-
-        <label for="username">Username:</label>
-        <asp:TextBox ID="username" runat="server" /><br />
-
-        <label for="password">Password:</label>
-        <asp:TextBox ID="password" runat="server" TextMode="Password" /><br />
-
-        <h3>Qualification Details</h3>
-        <div id="qualifications">
-            <div class="qualification">
-                <label for="courseName">Course Name:</label>
-                <asp:TextBox ID="courseName" runat="server" /><br />
-
-                <label for="percentage">Percentage:</label>
-                <asp:TextBox ID="percentage" runat="server" /><br />
-
-                <label for="yearOfPassing">Year of Passing:</label>
-                <asp:TextBox ID="yearOfPassing" runat="server" /><br />
+            <div class="row mb-3">
+                <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="firstName" runat="server" CssClass="form-control" />
+                </div>
             </div>
-        </div>
-        <button type="button" id="addQualification">Add More Qualifications</button><br />
+            
+            <div class="row mb-3">
+                <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="lastName" runat="server" CssClass="form-control" />
+                </div>
+            </div>
 
-        <asp:Button ID="registerButton" runat="server" Text="Register" OnClick="RegisterButton_Click" />
-<%--    </form>--%>
+            <div class="row mb-3">
+                <label for="age" class="col-sm-2 col-form-label">Age</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="age" runat="server" CssClass="form-control" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="dob" class="col-sm-2 col-form-label">Date of Birth</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="dob" runat="server" CssClass="form-control" TextMode="Date" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-sm-10">
+                    <asp:DropDownList ID="gender" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="Male">Male</asp:ListItem>
+                        <asp:ListItem Value="Female">Female</asp:ListItem>
+                        <asp:ListItem Value="Other">Other</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="email" runat="server" CssClass="form-control" TextMode="Email" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="phone" runat="server" CssClass="form-control" TextMode="SingleLine" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="username" runat="server" CssClass="form-control" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="password" runat="server" CssClass="form-control" TextMode="Password" />
+                </div>
+            </div>
+
+            <h3>Qualification Details</h3>
+            <table id="qualificationsGridView" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>University</th>
+                        <th>Year</th>
+                        <th>Percentage</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button type="button" id="addQualification" class="btn btn-primary">Add Qualification</button>
+
+            <div class="row mb-3 mt-4">
+                <div class="col-sm-10 offset-sm-2">
+
+
+<%--                 <input class="btn btn-primary" type="button" value="Submit" onclick="RegisterButton_Click"/>--%>
+            <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary" Text="Submit" />
+               </div>
+                <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+
+            </div>
+           
+
+        </div>
+    </form>
 </body>
 </html>
-
-</asp:Content>

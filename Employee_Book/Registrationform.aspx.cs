@@ -14,9 +14,9 @@ namespace Employee_Book
         {
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
-            bool termsAccepted = chkTerms.Checked;
+           
 
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || !termsAccepted)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
 
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please fill all Field..!');", true);

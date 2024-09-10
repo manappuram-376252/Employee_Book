@@ -162,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="BusinessLogic\UserService.cs" />
+    <Compile Include="DataAccess\UserRepository.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Registration.aspx.cs">
       <DependentUpon>Registration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
