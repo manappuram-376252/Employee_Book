@@ -22,7 +22,7 @@ namespace Employee_Book
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please fill all Field..!');", true);
                 return;
             }
-            if (password != "Passwrd@123")
+            if (password != "Passwrd@123") 
             {
 
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please Check Password..!');", true);
