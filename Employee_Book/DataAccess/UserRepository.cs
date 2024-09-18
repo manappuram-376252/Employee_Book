@@ -5,13 +5,12 @@ namespace Employee_Book.DataAccess
 {
     public class UserRepository
     {
-        //private string connectionString = "Data Source =(localdb)\MSSQLLocalDB;Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
         public bool SaveUser(User user)
         {
 
 
             //using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlConnection connection = new SqlConnection(@"Data Source =(localdb)\MSSQLLocalDB;Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
+            using (SqlConnection connection = new SqlConnection(@"Data Source =(localdb)\MSSQLLocalDB;Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
             {
                 string query = "INSERT INTO user (FirstName, LastName, Age, Dob, Gender, Email, Phone, Username, Password) VALUES (@FirstName, @LastName, @Age, @Dob, @Gender, @Email, @Phone, @Username, @Password)";
                 SqlCommand command = new SqlCommand(query, connection);

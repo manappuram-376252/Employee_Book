@@ -12,7 +12,7 @@
         <h2>Login Form</h2>
         <div class="container mt-4">
             <div class="mb-3">
-                <label for="txtEmail" class="form-label">Email address</label>
+                <label for="txtEmail" class="form-label">User Name</label>
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
